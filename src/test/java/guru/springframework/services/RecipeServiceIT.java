@@ -1,7 +1,6 @@
 package guru.springframework.services;
 
 import guru.springframework.commands.RecipeCommand;
-import guru.springframework.converters.RecipeCommandToRecipe;
 import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.RecipeRepository;
@@ -17,7 +16,6 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by jt on 6/21/17.
  */
-//@DataMongoTest
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RecipeServiceIT {
@@ -25,20 +23,16 @@ public class RecipeServiceIT {
     public static final String NEW_DESCRIPTION = "New Description";
 
     @Autowired
-    RecipeService recipeService;
+    private RecipeService recipeService;
 
     @Autowired
-    RecipeRepository recipeRepository;
+    private RecipeRepository recipeRepository;
 
     @Autowired
-    RecipeCommandToRecipe recipeCommandToRecipe;
+    private RecipeToRecipeCommand recipeToRecipeCommand;
 
-    @Autowired
-    RecipeToRecipeCommand recipeToRecipeCommand;
-
-  //  @Transactional
     @Test
-    public void testSaveOfDescription() throws Exception {
+    public void testSaveOfDescription() {
         //given
         Iterable<Recipe> recipes = recipeRepository.findAll();
         Recipe testRecipe = recipes.iterator().next();
@@ -46,7 +40,7 @@ public class RecipeServiceIT {
 
         //when
         testRecipeCommand.setDescription(NEW_DESCRIPTION);
-        RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(testRecipeCommand);
+        RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(testRecipeCommand).block();
 
         //then
         assertEquals(NEW_DESCRIPTION, savedRecipeCommand.getDescription());
