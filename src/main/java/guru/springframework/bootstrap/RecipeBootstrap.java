@@ -4,7 +4,11 @@ import guru.springframework.domain.*;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
+import guru.springframework.repositories.reactive.CategoryReactiveRepository;
+import guru.springframework.repositories.reactive.RecipeReactiveRepository;
+import guru.springframework.repositories.reactive.UnitOfMeasureReactiveRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -100,38 +104,32 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         //get UOMs
         Optional<UnitOfMeasure> eachUomOptional = unitOfMeasureRepository.findByDescription("Each");
-
-        if(!eachUomOptional.isPresent()){
+        if(eachUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
         Optional<UnitOfMeasure> tableSpoonUomOptional = unitOfMeasureRepository.findByDescription("Tablespoon");
-
-        if(!tableSpoonUomOptional.isPresent()){
+        if(tableSpoonUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
         Optional<UnitOfMeasure> teaSpoonUomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
-
-        if(!teaSpoonUomOptional.isPresent()){
+        if(teaSpoonUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
         Optional<UnitOfMeasure> dashUomOptional = unitOfMeasureRepository.findByDescription("Dash");
-
-        if(!dashUomOptional.isPresent()){
+        if(dashUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
         Optional<UnitOfMeasure> pintUomOptional = unitOfMeasureRepository.findByDescription("Pint");
-
-        if(!pintUomOptional.isPresent()){
+        if(pintUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
         Optional<UnitOfMeasure> cupsUomOptional = unitOfMeasureRepository.findByDescription("Cup");
-
-        if(!cupsUomOptional.isPresent()){
+        if(cupsUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
